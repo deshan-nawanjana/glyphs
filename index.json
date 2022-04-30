@@ -1,0 +1,152 @@
+{
+    "BootstrapIcons": {
+        "author": "Bootstrap",
+        "github": "https://github.com/twbs/icons/",
+        "amount": 1370,
+        "source": "packages/bootstrap_icons.json"
+    },
+    "BoxIcons": {
+        "author": "Iconscout",
+        "github": "https://github.com/Iconscout/unicons/",
+        "amount": 1370,
+        "source": "packages/box_icons.json"
+    },
+    "CaptainIcon": {
+        "author": "Mario del Valle",
+        "github": "https://github.com/mariodelvalle/CaptainIcon/",
+        "amount": 375,
+        "source": "packages/captain_icon.json"
+    },
+    "CoreUI": {
+        "author": "Łukasz Holeczek",
+        "github": "https://github.com/coreui/coreui-icons/",
+        "amount": 1378,
+        "source": "packages/core_ui.json"
+    },
+    "Dashicons": {
+        "author": "WordPress",
+        "github": "https://github.com/WordPress/dashicons/",
+        "amount": 342,
+        "source": "packages/dashicons.json"
+    },
+    "Devicon": {
+        "author": "Konpa",
+        "github": "https://github.com/devicons/devicon/",
+        "amount": 257,
+        "source": "packages/devicon.json"
+    },
+    "Dripicons": {
+        "author": "Amit Jakhu",
+        "github": "https://github.com/amitjakhu/dripicons/",
+        "amount": 200,
+        "source": "packages/dripicons.json"
+    },
+    "ElegantIcons": {
+        "author": "Nick Roach",
+        "github": "https://github.com/heimrichhannot/elegant-icons/",
+        "amount": 360,
+        "source": "packages/elegant_icons.json"
+    },
+    "ElusiveIcons": {
+        "author": "Team Redux",
+        "github": "https://github.com/dovy/elusive-icons/",
+        "amount": 300,
+        "source": "packages/elusive_icons.json"
+    },
+    "EvaIcons": {
+        "author": "Akveo",
+        "github": "https://github.com/akveo/eva-icons/",
+        "amount": 246,
+        "source": "packages/eva_icons.json"
+    },
+    "Foundation": {
+        "author": "ZURB",
+        "github": "ttps://github.com/zurb/foundation-icon-fonts/",
+        "amount": 283,
+        "source": "packages/foundation.json"
+    },
+    "Fontisto": {
+        "author": "Kenan Gündoğan",
+        "github": "https://github.com/kenangundogan/fontisto/",
+        "amount": 615,
+        "source": "packages/fontisto.json"
+    },
+    "IKONS": {
+        "author": "Piotr Kwiatkowski",
+        "github": "https://github.com/FollowUpBoss/fub-icons/",
+        "amount": 300,
+        "source": "packages/ikons.json"
+    },
+    "IcoMoon": {
+        "author": "Keyamoon",
+        "github": "https://github.com/Keyamoon/IcoMoon-Free/",
+        "amount": 491,
+        "source": "packages/ico_moon.json"
+    },
+    "JamIcons": {
+        "author": "Michael Amprimo",
+        "github": "https://github.com/michaelampr/jam",
+        "amount": 940,
+        "source": "packages/jam_icons.json"
+    },
+    "LineAwesome": {
+        "author": "Icons8",
+        "github": "https://github.com/icons8/line-awesome/",
+        "amount": 1544,
+        "source": "packages/line_awesome.json"
+    },
+    "LineIcons": {
+        "author": "Lineicons",
+        "github": "https://github.com/GrayGrids/LineIcons/",
+        "amount": 532,
+        "source": "packages/line_icons.json"
+    },
+    "Linearicons": {
+        "author": "Perxis",
+        "github": "https://github.com/cjpatoilo/linearicons/",
+        "amount": 170,
+        "source": "packages/linearicons.json"
+    },
+    "MaterialDesign": {
+        "author": "Google",
+        "github": "https://github.com/google/material-design-icons/",
+        "amount": 1816,
+        "source": "packages/material_design.json"
+    },
+    "Octicons": {
+        "author": "Primer",
+        "github": "https://github.com/primer/octicons/",
+        "amount": 452,
+        "source": "packages/octicons.json"
+    },
+    "RemixIcon": {
+        "author": "Remix Design Studio",
+        "github": "https://github.com/Remix-Design/remixicon/",
+        "amount": 2271,
+        "source": "packages/remix_icon.json"
+    },
+    "SevenStroke": {
+        "author": "Pixeden",
+        "github": "https://github.com/olimsaidov/pixeden-stroke-7-icon/",
+        "amount": 202,
+        "source": "packages/seven_stroke.json"
+    },
+    "SimpleIcons": {
+        "author": "Simple Icons",
+        "github": "https://github.com/simple-icons/simple-icons/",
+        "amount": 1928,
+        "source": "packages/simple_icons.json"
+    },
+    "Teenyicons": {
+        "author": "Rebelle Noir",
+        "github": "https://github.com/teenyicons/teenyicons/",
+        "amount": 438,
+        "source": "packages/teenyicons.json"
+    },
+    "Typicons": {
+        "author": "Stephen Hutchings",
+        "github": "https://github.com/stephenhutchings/typicons.font/",
+        "amount": 336,
+        "source": "packages/typicons.json"
+    }
+}

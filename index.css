@@ -1,0 +1,113 @@
+* {
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    margin: 0px;
+    background-color: #23292f;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-thumb { background-color: #06c; }
+
+.side_menu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 250px;
+    height: 100vh;
+    background-color: #1118;
+    overflow: hidden;
+}
+
+.side_menu_inner {
+    width: 255px;
+    height: 100vh;
+    overflow-y: auto;
+    transition: width 0.2s;
+}
+
+.side_menu_inner:hover {
+    width: 250px;
+}
+
+.side_menu_inner > div {
+    color: #FFF5;
+    font-size: 14px;
+    line-height: 50px;
+    padding-left: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.side_menu_inner > div:hover {
+    background-color: #FFFFFF10;
+}
+
+.side_menu_inner > div[selected] {
+    color: #FFF9;
+    background-color: #FFFFFF25 !important;
+}
+
+.query_box {
+    position: fixed;
+    top: 0px;
+    left: 250px;
+    width: calc(100vw - 250px);
+    height: 50px;
+    background-color: #1113;
+}
+
+.query_box > input {
+    height: inherit;
+    border: none;
+    padding: 0px 20px;
+    width: inherit;
+    background: transparent;
+    font-size: 14px;
+    color: #FFF9;
+}
+
+.glyphs_box {
+    position: fixed;
+    top: 50px;
+    left: 250px;
+    width: calc(100vw - 250px);
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+}
+
+.glyphs_box > div {
+    display: inline-block;
+    width: 140px;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 30px;
+    overflow: hidden;
+    background-position: center 40px;
+    background-repeat: no-repeat;
+    background-size: 60px auto;
+    opacity: 0.65;
+    color: #FFF7;
+    text-align: center;
+    line-height: 30px;
+    padding-top: 150px;
+    margin: 10px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    box-shadow: inset 0px -50px 0px 0px #FFF0;
+    transition-property: background, box-shadow, opacity;
+    transition-duration: 0.2s;
+}
+
+.glyphs_box > div:hover {
+    opacity: 1;
+    background-color: #FFF1;
+    box-shadow: inset 0px -50px 0px 0px #FFF1;
+}
