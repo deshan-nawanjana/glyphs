@@ -89,6 +89,8 @@ class Glyph {
     }
 
     transform(data) {
+        // reset method
+        if(data === false) { data = {} }
         // default values
         if(data.angle === undefined) { data.angle = 0 }
         if(data.flipX === undefined) { data.flipX = false }
@@ -107,6 +109,7 @@ class Glyph {
     }
 
     style(data) {
+        // set each style
         Object.keys(data).forEach(prop => {
             this.domElement.style[prop] = data[prop]
         })
@@ -126,6 +129,8 @@ class Glyph {
     animate(animations) {
         // remove all animatin elements
         Glyph.removeAnimateElements(this.domElement)
+        // reset method
+        if(animations === false) { return }
         // for each animation
         Object.keys(animations).forEach(name => {
             let d = animations[name]
