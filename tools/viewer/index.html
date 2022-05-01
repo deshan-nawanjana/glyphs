@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../index.png" type="image/png">
+    <link rel="stylesheet" href="./index.css">
+    <script src="../../scripts/glyph.js"></script>
+    <script src="../../scripts/configure.js"></script>
+    <script src="./index.js"></script>
+    <title>SVG Icon Viewer | Glyphs</title>
+</head>
+<body>
+    <div class="loader"></div>
+    <div class="icon_tray">
+        <div class="icon_tray_inner"></div>
+    </div>
+    <div class="icon_info">
+        <div class="close"></div>
+        <div class="icon_name"></div>
+        <div class="pack_name"></div>
+    </div>
+    <div class="icon_edit">
+        <div class="section_box">
+            <div type="SVG" opened>SVG</div>
+            <div type="Animated">Animated</div>
+            <div type="PNG">PNG</div>
+        </div>
+        <div class="edit_items">
+            <div class="edit_item" id="color">
+                <div class="edit_label">Color</div>
+                <input type="text" autocomplete="off" spellcheck="false">
+                <input type="color">
+            </div>
+            <div class="edit_item" id="opacity">
+                <div class="edit_label">Opacity</div>
+                <input type="text" autocomplete="off" spellcheck="false">
+                <input type="range">
+            </div>
+            <div class="edit_item" id="angle">
+                <div class="edit_label">Angle</div>
+                <input type="text" autocomplete="off" spellcheck="false">
+                <input type="range">
+            </div>
+            <div class="edit_item" id="scale">
+                <div class="edit_label">Scale</div>
+                <input type="text" autocomplete="off" spellcheck="false">
+                <input type="range">
+            </div>
+            <div class="edit_item" id="flip">
+                <div class="edit_label">Flip</div>
+                <label><input type="checkbox" class="x">Flip-X</label>
+                <label><input type="checkbox" class="y">Flip-Y</label>
+            </div>
+            <div class="edit_item" id="animation">
+                <div class="edit_label">Animation</div>
+                <select>
+                    <option value="scale">Scale</option>
+                    <option value="rotate">Rotate</option>
+                </select>
+            </div>
+            <div class="edit_item" id="duration">
+                <div class="edit_label">Duration</div>
+                <input type="text" autocomplete="off" spellcheck="false">
+                <input type="range">
+            </div>
+            <div class="edit_item" id="direction">
+                <div class="edit_label">Direction</div>
+                <select>
+                    <option value="cw">CW</option>
+                    <option value="ccw">CCW</option>
+                </select>
+            </div>
+            <div class="edit_item" id="resolution">
+                <div class="edit_label">Resolution</div>
+                <input type="text" autocomplete="off" spellcheck="false">
+                <input type="range">
+            </div>
+        </div>
+        <div class="download">
+            <button id="svg">Download SVG</button>
+            <button id="png">Download PNG</button>
+            <button id="css">Copy CSS Rule</button>
+        </div>
+    </div>
+</body>
+</html>

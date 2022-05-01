@@ -1,0 +1,265 @@
+* {
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    margin: 0px;
+    background-color: #23292f;
+    overflow: hidden;
+}
+
+.icon_tray {
+    width: 300px;
+    height: 450px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #FFF1;
+}
+
+.icon_tray_inner {
+    width: 200px;
+    height: 200px;
+    margin-top: 125px;
+    margin-left: 50px;
+    overflow: hidden;
+}
+
+.icon_tray_inner > svg {
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon_info {
+    position: fixed;
+    width: 375px;
+    top: 0px;
+    left: 300px;
+    padding: 10px 10px 15px 15px;
+    background-color: #1113;
+}
+
+.icon_name {
+    color: #FFF5;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.pack_name {
+    font-size: 13px;
+    cursor: pointer;
+    color: #FFF3;
+    display: inline-block;
+    line-height: 15px;
+}
+
+.pack_name:hover {
+    text-decoration: underline;
+}
+
+.icon_edit {
+    position: fixed;
+    width: 400px;
+    height: 380px;
+    top: 70px;
+    left: 300px;
+}
+
+.section_box {
+    line-height: 40px;
+    height: 40px;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.section_box > div {
+    width: 34%;
+    text-align: center;
+    font-size: 14px;
+    color: #FFF6;
+    background-color: #0002;
+}
+
+.section_box > div[opened] {
+    background-color: #FFF0;
+}
+
+.edit_items {
+    height: 265px;
+}
+
+.edit_item {
+    font-size: 14px;
+    padding: 5px 20px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.edit_item > * {
+    display: inline-block;
+}
+
+.edit_label {
+    width: 90px;
+    font-size: 13px;
+    color: #FFF6;
+}
+
+.edit_item > input[type=text] {
+    text-transform: uppercase;
+}
+
+.edit_item > input[type=text],
+.edit_item > select {
+    width: 80px;
+    background-color: #FFF1;
+    border: 1px solid #FFF3;
+    color: #FFF8;
+    font-size: 14px;
+    padding: 4px 5px;
+}
+
+.edit_item > select > option {
+    background-color: #32333d;
+}
+
+.edit_item > input[type=range] {
+    -webkit-appearance: none;
+    vertical-align: top;
+    margin-left: 10px;
+    background-color: #FFF1;
+    border: 1px solid #FFF3;
+    width: 130px;
+}
+
+.edit_item > input[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    padding: 0px;
+    height: 26px;
+    margin: 0px;
+}
+
+.edit_item > input[type=range]::-webkit-slider-thumb {
+    background-color: #FFF4;
+    -webkit-appearance: none;
+    vertical-align: top;
+    height: inherit;
+    width: 0px;
+    height: 0px;
+}
+
+.edit_item > input[type=color] {
+    -webkit-appearance: none;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    vertical-align: middle;
+    height: 28px;
+    margin-top: -4px;
+    margin-left: 10px;
+}
+
+::-webkit-color-swatch-wrapper {
+    padding: 0px;
+    margin: 0px;
+}
+::-webkit-color-swatch {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.edit_item > label {
+    display: inline-block;
+    width: 90px;
+    color: #FFF8;
+    font-size: 12px;
+}
+
+.edit_item > label > input {
+    margin: 0px 8px 0px 0px;
+    vertical-align: middle;
+}
+
+.download {
+    padding-right: 25px;
+}
+
+.download > button {
+    -webkit-appearance: none;
+    float: right;
+    margin-left: 10px;
+    height: 35px;
+    line-height: 20px;
+    border: none;
+    width: 170px;
+    text-align: center;
+    font-size: 12px;
+    background-color: #FFF1;
+    transition: background 0.1s;
+    color: #FFF7;
+}
+
+.download > button:hover {
+    background-color: #FFF3;
+}
+
+.download > button:active {
+    background-color: #FFF1;
+}
+
+.loader {
+    position: fixed;
+    z-index: 3;
+    width: 100vw;
+    height: 100vh;
+    background-color: #23292f;
+    background-image: url('data:image/svg+xml,<svg version="1.1" viewBox="0 0 16 16" width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: rgb(255, 255, 255); opacity: 0.33; transform: rotate(0deg) scale(1, 1);"><g><g style="transform-origin: center center;" class="glyph_animate" index="2"><g style="transform-origin: center center;" class="glyph_animate" index="1"><path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812 0.092-3.779 2.966-6.812 6.498-6.812 3.59 0 6.5 3.134 6.5 7 0 0.828 0.672 1.5 1.5 1.5s1.5-0.672 1.5-1.5c0-4.418-3.582-8-8-8zM8 16c4.355 0 7.898-3.481 7.998-7.812-0.092 3.779-2.966 6.812-6.498 6.812-3.59 0-6.5-3.134-6.5-7 0-0.828-0.672-1.5-1.5-1.5s-1.5 0.672-1.5 1.5c0 4.418 3.582 8 8 8z"></path><animateTransform id="glyph_animate_element_1" attributeName="transform" type="rotate" dur="1.39s" from="0" to="360" repeatCount="indefinite"></animateTransform></g><animateTransform id="glyph_animate_element_2" attributeName="transform" type="scale" dur="1.39s" from="0.7" to="0.7" repeatCount="indefinite"></animateTransform></g></g></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80px auto;
+    transition: opacity 0.1s;
+}
+
+.close {
+    width: 30px;
+    height: 30px;
+    float: right;
+    background-image: url('data:image/svg+xml,<svg version="1.1" viewBox="0 0 16 16" width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: rgb(255, 255, 255); opacity: 0.4; transform: rotate(0deg) scale(0.7, 0.7);"><g><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path></g></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    cursor: pointer;
+}
+
+/* =============== css for mobile devices =============== */
+
+@media (orientation: portrait) {
+    .icon_info {
+        left: 0px;
+        width: calc(100vw - 30px);
+    }
+    .icon_tray {
+        top: 70px;
+        width: 100vw;
+        height: 150px;
+    }
+    .icon_tray_inner {
+        margin: -25px auto;
+        transform: scale(0.6);
+    }
+    .icon_edit {
+        left: 0px;
+        top: 220px;
+        width: 100vw;
+    }
+    .edit_item > input[type=range] {
+        width: 100px;
+    }
+    .download > button {
+        width: 120px;
+    }
+}
