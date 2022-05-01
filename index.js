@@ -4,7 +4,20 @@ const qa = x => Array.from(document.querySelectorAll(x))
 const data = {
     time : Date.now(),
     packages : {},
-    current : { name : null, index : 0, query : '' }
+    current : { name : null, index : 0, query : '' },
+    viewer : {
+        type : 'SVG',
+        resolution : 1000,
+        direction : 'cw',
+        duration : 1,
+        animation : 'scale',
+        opacity : 100,
+        color : '#ffffff',
+        scale : 0.7,
+        angle : 0,
+        flipX : false,
+        flipY : false
+    }
 }
 
 window.addEventListener('load', () => {
@@ -19,23 +32,61 @@ window.addEventListener('load', () => {
             e.addEventListener('click', () => openPackage(name))
             qs('.side_menu_inner').appendChild(e)
         })
+        // build mobile side menu
+        Object.keys(packages).forEach(name => {
+            const e = document.createElement('option')
+            e.innerHTML = name
+            qs('.side_menu_mobile > select').appendChild(e)
+        })
+        qs('.side_menu_mobile').addEventListener('change', e => {
+            openPackage(e.target.value)
+        })
         // load first package
         openPackage(Object.keys(packages)[0])
     })
     // search box event
-    qs('.query_box > input').addEventListener('input', e => {
+    qs('.search_bar > input').addEventListener('input', e => {
         if(data.current.name === null) { return }
         data.current.query = e.target.value
         openPackage(data.current.name)
     })
-    // scroll and load more event
-    qs('.glyphs_box').addEventListener('scroll', e => {
+    // desktop scroll and load more event
+    qs('.icons_tray').addEventListener('scroll', e => {
+        if(window.innerHeight > window.innerWidth) { return }
         const tray = e.target
         const rect = tray.getBoundingClientRect()
         if(tray.scrollHeight - tray.scrollTop - rect.height < 100) {
             loadIcons()
         }
     })
+    // mobile scroll and load more event
+    window.addEventListener('scroll', () => {
+        if(window.innerHeight <= window.innerWidth) { return }
+        const tray = document.body
+        if(tray.scrollHeight - tray.scrollTop - window.innerHeight < 100) {
+            loadIcons()
+        }
+    })
+    // glyph viewer close event
+    qs('.glyph_viewer').addEventListener('click', e => {
+        if(e.target.className === 'glyph_viewer') {
+            closeViewer()
+        }
+    })
+    // send current glyph configuration to viewer
+    qs('.glyph_viewer > iframe').addEventListener('load', () => {
+        qs('.glyph_viewer > iframe').contentWindow.postMessage(data.viewer)
+    })
+    // receive current glyph configuration or close event from viewer
+    window.addEventListener('message', e => {
+        if(e.data.close === true) {
+            // close viewer
+            closeViewer()
+        } else {
+            // save configuration
+            data.viewer = e.data
+        }
+    })    
 })
 
 const loadPackage = (name, time, callback) => {
@@ -66,6 +117,8 @@ const openPackage = name => {
     qs('#' + name).setAttribute('selected', '')
     // store new time stamp
     data.time = Date.now()
+    // show loading screen
+    qs('.loader').style.display = 'block'
     // load package
     loadPackage(name, data.time, time => {
         // check latest request
@@ -74,9 +127,11 @@ const openPackage = name => {
             data.current.name = name
             data.current.index = 0
             // reset icon tray
-            qs('.glyphs_box').innerHTML = ''
-            qs('.glyphs_box').scrollTop = 0
+            qs('.icons_tray').innerHTML = ''
+            qs('.icons_tray').scrollTop = 0
             loadIcons()
+            // hide loading screen
+            qs('.loader').style.display = 'none'
         }
     })
 }
@@ -85,7 +140,7 @@ const loadIcons = () => {
     // get filtered icon list
     const name = data.current.name
     const full = data.packages[name].glyphs
-    const find = data.current.query
+    const find = data.current.query.toLowerCase()
     const list = full.filter(x => x.name.indexOf(find) > -1)
     // get current icon index
     const index = data.current.index
@@ -106,9 +161,9 @@ const loadIcons = () => {
             item.style.backgroundImage = `url('${url}')`
         })
         // append element to tray
-        qs('.glyphs_box').appendChild(item)
+        qs('.icons_tray').appendChild(item)
         // add icon open event
-        item.addEventListener('click', () => openIcon(icon.index))
+        item.addEventListener('click', () => openIcon(icon.name))
         // update current index
         data.current.index = i
     }
@@ -116,7 +171,21 @@ const loadIcons = () => {
     data.current.index += 1
 }
 
-const openIcon = index => {
-    const icon = data.packages[data.current.name].glyphs[index]
-    console.log(icon)
+const openIcon = name => {
+    // set glyph viewer url
+    const params = `package=${data.current.name}&icon=${name}`
+    // popup glyph viewer
+    qs('.glyph_viewer > iframe').src = 'tools/viewer?' + params
+    qs('.glyph_viewer').removeAttribute('closed')
+    qs('.glyph_viewer').setAttribute('opened', '')
+    document.body.style.overflowY = 'hidden'
+}
+
+const closeViewer = () => {
+    qs('.glyph_viewer').removeAttribute('opened')
+    qs('.glyph_viewer').setAttribute('closed', '')
+    setTimeout(() => {
+        qs('.glyph_viewer > iframe').src = 'about:blank'
+    }, 300);
+    document.body.style.overflowY = 'auto'
 }
