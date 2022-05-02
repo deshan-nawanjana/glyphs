@@ -11,7 +11,7 @@ const randomKey = obj => {
 
 window.addEventListener('load', () => {
     // get info from url
-    const params = new URLSearchParams(window.location.search)
+    const params = new URLSearchParams(window.location.toString().split('#')[1] || '?')
     // load package list
     fetch('../../index.json').then(resp => resp.json()).then(packages => {
         // package info

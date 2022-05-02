@@ -175,7 +175,7 @@ const openIcon = name => {
     // set glyph viewer url
     const params = `package=${data.current.name}&icon=${name}`
     // popup glyph viewer
-    qs('.glyph_viewer > iframe').src = 'tools/viewer?' + params
+    qs('.glyph_viewer > iframe').src = 'tools/viewer/#' + params
     qs('.glyph_viewer').removeAttribute('closed')
     qs('.glyph_viewer').setAttribute('opened', '')
     document.body.style.overflowY = 'hidden'
