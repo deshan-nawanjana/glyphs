@@ -22,75 +22,6 @@ const data = {
   }
 }
 
-window.addEventListener('load', () => {
-  // load package list
-  fetch(baseURL + 'index.json').then(resp => resp.json()).then(packages => {
-    data.packages = packages
-    // build side menu
-    Object.keys(packages).forEach(name => {
-      const e = document.createElement('div')
-      e.innerHTML = name
-      e.id = name
-      e.addEventListener('click', () => openPackage(name))
-      qs('.side_menu_inner').appendChild(e)
-    })
-    // build mobile side menu
-    Object.keys(packages).forEach(name => {
-      const e = document.createElement('option')
-      e.innerHTML = name
-      qs('.side_menu_mobile > select').appendChild(e)
-    })
-    qs('.side_menu_mobile').addEventListener('change', e => {
-      openPackage(e.target.value)
-    })
-    // load first package
-    openPackage(Object.keys(packages)[0])
-  })
-  // search box event
-  qs('.search_bar > input').addEventListener('input', e => {
-    if (data.current.name === null) { return }
-    data.current.query = e.target.value
-    openPackage(data.current.name)
-  })
-  // desktop scroll and load more event
-  qs('.icons_tray').addEventListener('scroll', e => {
-    if (window.innerHeight > window.innerWidth) { return }
-    const tray = e.target
-    const rect = tray.getBoundingClientRect()
-    if (tray.scrollHeight - tray.scrollTop - rect.height < 100) {
-      loadIcons()
-    }
-  })
-  // mobile scroll and load more event
-  window.addEventListener('scroll', () => {
-    if (window.innerHeight <= window.innerWidth) { return }
-    const tray = document.body
-    if (tray.scrollHeight - tray.scrollTop - window.innerHeight < 100) {
-      loadIcons()
-    }
-  })
-  // glyph viewer close event
-  qs('.glyph_viewer').addEventListener('click', e => {
-    if (e.target.className === 'glyph_viewer') {
-      closeViewer()
-    }
-  })
-  // send current glyph configuration to viewer
-  qs('.glyph_viewer > iframe').addEventListener('load', () => {
-    qs('.glyph_viewer > iframe').contentWindow.postMessage(data.viewer, "*")
-  })
-  // receive current glyph configuration or close event from viewer
-  window.addEventListener('message', e => {
-    if (e.data.close === true) {
-      // close viewer
-      closeViewer()
-    } else {
-      // save configuration
-      data.viewer = e.data
-    }
-  })
-})
-
 const loadPackage = (name, time, callback) => {
   if (data.packages[name].glyphs) {
     // return previous data
@@ -191,3 +122,70 @@ const closeViewer = () => {
   }, 300);
   document.body.style.overflowY = 'auto'
 }
+
+// load package list
+fetch(baseURL + 'index.json').then(resp => resp.json()).then(packages => {
+  data.packages = packages
+  // build side menu
+  Object.keys(packages).forEach(name => {
+    const e = document.createElement('div')
+    e.innerHTML = name
+    e.id = name
+    e.addEventListener('click', () => openPackage(name))
+    qs('.side_menu_inner').appendChild(e)
+  })
+  // build mobile side menu
+  Object.keys(packages).forEach(name => {
+    const e = document.createElement('option')
+    e.innerHTML = name
+    qs('.side_menu_mobile > select').appendChild(e)
+  })
+  qs('.side_menu_mobile').addEventListener('change', e => {
+    openPackage(e.target.value)
+  })
+  // load first package
+  openPackage(Object.keys(packages)[0])
+})
+// search box event
+qs('.search_bar > input').addEventListener('input', e => {
+  if (data.current.name === null) { return }
+  data.current.query = e.target.value
+  openPackage(data.current.name)
+})
+// desktop scroll and load more event
+qs('.icons_tray').addEventListener('scroll', e => {
+  if (window.innerHeight > window.innerWidth) { return }
+  const tray = e.target
+  const rect = tray.getBoundingClientRect()
+  if (tray.scrollHeight - tray.scrollTop - rect.height < 100) {
+    loadIcons()
+  }
+})
+// mobile scroll and load more event
+window.addEventListener('scroll', () => {
+  if (window.innerHeight <= window.innerWidth) { return }
+  const tray = document.body
+  if (tray.scrollHeight - tray.scrollTop - window.innerHeight < 100) {
+    loadIcons()
+  }
+})
+// glyph viewer close event
+qs('.glyph_viewer').addEventListener('click', e => {
+  if (e.target.className === 'glyph_viewer') {
+    closeViewer()
+  }
+})
+// send current glyph configuration to viewer
+qs('.glyph_viewer > iframe').addEventListener('load', () => {
+  qs('.glyph_viewer > iframe').contentWindow.postMessage(data.viewer, "*")
+})
+// receive current glyph configuration or close event from viewer
+window.addEventListener('message', e => {
+  if (e.data.close === true) {
+    // close viewer
+    closeViewer()
+  } else {
+    // save configuration
+    data.viewer = e.data
+  }
+})
