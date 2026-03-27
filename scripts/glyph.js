@@ -1,4 +1,4 @@
-class Glyph {
+export class Glyph {
 
 	constructor(data) {
         // data type conversion

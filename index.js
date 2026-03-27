@@ -1,3 +1,5 @@
+import { Glyph } from "./scripts/glyph.js"
+
 const qs = x => document.querySelector(x)
 const qa = x => Array.from(document.querySelectorAll(x))
 

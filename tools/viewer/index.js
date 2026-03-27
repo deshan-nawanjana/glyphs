@@ -1,3 +1,6 @@
+import { Glyph } from "../../scripts/glyph.js"
+import { Configure } from "../../scripts/configure.js"
+
 const qs = x => document.querySelector(x)
 const qa = x => Array.from(document.querySelectorAll(x))
 

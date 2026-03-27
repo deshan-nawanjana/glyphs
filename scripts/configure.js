@@ -1,4 +1,4 @@
-class Configure {
+export class Configure {
 
     constructor(callback) {
         this.handlers = {}
