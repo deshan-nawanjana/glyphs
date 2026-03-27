@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
   // get info from url
   const params = new URLSearchParams(window.location.toString().split('#')[1] || '?')
   // load package list
-  fetch('../index.json').then(resp => resp.json()).then(packages => {
+  fetch('../../index.json').then(resp => resp.json()).then(packages => {
     // package info
     const pack_name = params.get('package') || randomKey(packages)
     const pack_data = packages[pack_name]
