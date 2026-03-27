@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
     const pack_name = params.get('package') || randomKey(packages)
     const pack_data = packages[pack_name]
     // load package
-    fetch("/" + pack_data.source, { cache: 'force-cache' })
+    fetch("../../" + pack_data.source, { cache: 'force-cache' })
       .then(resp => resp.json()).then(icons => {
         // icon info
         data.name = params.get('icon') || randomKey(icons)
