@@ -125,3 +125,21 @@ glyph.toDataURL('image/png', 3000, 5000).then(url => {
     // png data url is here
 })
 ```
+
+### Developed by Deshan Nawanjana
+
+[Deshan.lk](https://deshan.lk/)
+&ensp;|&ensp;
+[LinkedIn](https://www.linkedin.com/in/deshan-nawanjana/)
+&ensp;|&ensp;
+[Facebook](https://www.facebook.com/mr.dnjs)
+&ensp;|&ensp;
+[GitHub](https://github.com/deshan-nawanjana)
+&ensp;|&ensp;
+[YouTube](https://www.youtube.com/@deshan-nawanjana)
+&ensp;|&ensp;
+[X](https://x.com/DeshanNawanjana)
+&ensp;|&ensp;
+[Instagram](https://www.instagram.com/_d.boy_/)
+&ensp;|&ensp;
+[Reddit](https://www.reddit.com/user/DeshanNawanjana/)
