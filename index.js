@@ -186,6 +186,9 @@ window.addEventListener('message', e => {
   if (e.data.close === true) {
     // close viewer
     closeViewer()
+  } else if (e.data.copy) {
+    // write to clipboard
+    navigator.clipboard.writeText(e.data.copy)
   } else {
     // save configuration
     data.viewer = e.data

@@ -235,7 +235,7 @@ const copyCSS = () => {
     e.value = `background-image: url('${url}');`
     e.select()
     e.setSelectionRange(0, e.value + 1000)
-    navigator.clipboard.writeText(e.value)
+    window.parent.postMessage({ copy: e.value }, "*")
   })
 }
 
