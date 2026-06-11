@@ -3,6 +3,9 @@
  * @typedef {Object.<string, { viewBox: string, elements: Object.<string, Object.<string, string>[]> }>} Data
  */
 
+/** SVG namespace */
+const NAMESPACE = "http://www.w3.org/2000/svg"
+
 export class Glyphs {
   /**
    * @param {string} name Name of the collection
@@ -16,5 +19,46 @@ export class Glyphs {
     this.meta = meta
     /** @type {Data} SVG definitions for the icons */
     this.data = data
+  }
+  /**
+   * Generates SVG element for an icon
+   * @param {string} id Identifier of the icon
+   * @returns {SVGSVGElement | null}
+   */
+  toSVG(id) {
+    // return if no such icon
+    if (id in this.data === false) return null
+    // get icon data and view box values
+    const data = this.data[id]
+    const view = data.viewBox.split(" ")
+    // create svg element
+    const svg = document.createElementNS(NAMESPACE, "svg")
+    // set dimensions and view box
+    svg.setAttribute("width", view[2])
+    svg.setAttribute("height", view[3])
+    svg.setAttribute("viewBox", data.viewBox)
+    // get element tags
+    const tags = Object.keys(data.elements)
+    // for each tag name
+    for (const tag of tags) {
+      // get child element
+      const elements = data.elements[tag]
+      // for each element
+      for (const element of elements) {
+        // get element attributes and values
+        const attributes = Object.keys(element)
+        // create child element by tag name
+        const child = document.createElementNS(NAMESPACE, tag)
+        // for each attribute
+        for (const attribute of attributes) {
+          // set attribute on child element
+          child.setAttribute(attribute, element[attribute])
+        }
+        // append on svg element
+        svg.appendChild(child)
+      }
+    }
+    // return svg element
+    return svg
   }
 }
