@@ -65,6 +65,8 @@ export class Icon {
     if ("color" in options) {
       // set fill attribute
       this.group.setAttribute("fill", options.color)
+      // remove any previous gradient element
+      this.defs.querySelector(".gradient")?.remove()
     }
     // check gradient option
     if ("gradient" in options) {
@@ -98,8 +100,7 @@ export class Icon {
         gradient.appendChild(stop)
       }
       // remove any previous gradient element
-      const previous = this.defs.querySelector(".gradient")
-      if (previous) { previous.remove() }
+      this.defs.querySelector(".gradient")?.remove()
       // append to definitions
       this.defs.appendChild(gradient)
       // set fill attribute
