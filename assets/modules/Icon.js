@@ -2,6 +2,8 @@
 const NAMESPACE = "http://www.w3.org/2000/svg"
 
 export class Icon {
+  /** @type {string} Random UUID of icon */
+  #uuid = crypto.randomUUID()
   /** @type {number} Width of the SVG */
   #width = 100
   /** @type {number} Height of the SVG */
@@ -69,10 +71,13 @@ export class Icon {
       // get gradient type
       const type = options.gradient.type === "linear"
         ? "linearGradient" : "radialGradient"
+      // create id for gradient
+      const id = `grad-${this.#uuid}`
       // create gradient element for type
       const gradient = document.createElementNS(NAMESPACE, type)
-      // set gradient id attribute
-      gradient.setAttribute("id", "gradient")
+      // set gradient id attributes
+      gradient.setAttribute("id", id)
+      gradient.setAttribute("class", "gradient")
       // set rotate attribute
       if ("rotate" in options.gradient) {
         gradient.setAttribute("gradientTransform", `rotate(${options.gradient.rotate}, 0.5, 0.5)`)
@@ -93,12 +98,12 @@ export class Icon {
         gradient.appendChild(stop)
       }
       // remove any previous gradient element
-      const previous = this.defs.querySelector("#gradient")
+      const previous = this.defs.querySelector(".gradient")
       if (previous) { previous.remove() }
       // append to definitions
       this.defs.appendChild(gradient)
       // set fill attribute
-      this.group.setAttribute("fill", "url(#gradient)")
+      this.group.setAttribute("fill", `url(#${id})`)
       // append definitions element
       if (this.domElement.querySelector("defs") === null) {
         this.group.before(this.defs)
