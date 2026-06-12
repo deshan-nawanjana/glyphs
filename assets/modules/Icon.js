@@ -12,6 +12,8 @@ export class Icon {
   constructor(data) {
     /** @type {SVGSVGElement} SVG element of icon */
     this.domElement = document.createElementNS(NAMESPACE, "svg")
+    /** @type {SVGDefsElement} Definitions element */
+    this.defs = document.createElementNS(NAMESPACE, "defs")
     /** @type {SVGGElement} Group element */
     this.group = document.createElementNS(NAMESPACE, "g")
     // add group element into svg
