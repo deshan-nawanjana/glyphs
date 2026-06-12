@@ -8,6 +8,10 @@ export class Icon {
   constructor(data) {
     /** @type {SVGSVGElement} SVG element of icon */
     this.domElement = document.createElementNS(NAMESPACE, "svg")
+    /** @type {SVGGElement} Group element */
+    this.group = document.createElementNS(NAMESPACE, "g")
+    // add group element into svg
+    this.domElement.appendChild(this.group)
     // get icon data and view box values
     const view = data.viewBox.split(" ")
     // set dimensions and view box
@@ -31,8 +35,8 @@ export class Icon {
           // set attribute on child element
           child.setAttribute(attribute, element[attribute])
         }
-        // append on svg element
-        this.domElement.appendChild(child)
+        // append on group
+        this.group.appendChild(child)
       }
     }
   }
