@@ -51,16 +51,58 @@ export class Icon {
   /**
    * Applies style rules to icon
    * @param {{
-   *  fill: string,
+   *  color: string,
+   *  gradient: { type: 'linear' | 'radial', rotate: number, stops: string[] },
    *  opacity: number,
    *  rotate: number,
    *  scale: number | number[]
    * }} options 
    */
   addStyle(options) {
-    // set fill attribute
-    if ("fill" in options) {
-      this.group.setAttribute("fill", options.fill)
+    // check color option
+    if ("color" in options) {
+      // set fill attribute
+      this.group.setAttribute("fill", options.color)
+    }
+    // check gradient option
+    if ("gradient" in options) {
+      // get gradient type
+      const type = options.gradient.type === "linear"
+        ? "linearGradient" : "radialGradient"
+      // create gradient element for type
+      const gradient = document.createElementNS(NAMESPACE, type)
+      // set gradient id attribute
+      gradient.setAttribute("id", "gradient")
+      // set rotate attribute
+      if ("rotate" in options.gradient) {
+        gradient.setAttribute("gradientTransform", `rotate(${options.gradient.rotate}, 0.5, 0.5)`)
+      }
+      // get color stops
+      const colors = options.gradient.stops
+      // for each color stop
+      for (let i = 0; i < colors.length; i++) {
+        // get color by index
+        const color = colors[i]
+        // create stop element
+        const stop = document.createElementNS(NAMESPACE, "stop")
+        // set stop color attribute
+        stop.setAttribute("stop-color", color)
+        // set offset attribute
+        stop.setAttribute("offset", `${100 * i / (colors.length - 1)}%`)
+        // append to gradient element
+        gradient.appendChild(stop)
+      }
+      // remove any previous gradient element
+      const previous = this.defs.querySelector("#gradient")
+      if (previous) { previous.remove() }
+      // append to definitions
+      this.defs.appendChild(gradient)
+      // set fill attribute
+      this.group.setAttribute("fill", "url(#gradient)")
+      // append definitions element
+      if (this.domElement.querySelector("defs") === null) {
+        this.group.before(this.defs)
+      }
     }
     // set opacity attribute
     if ("opacity" in options) {
