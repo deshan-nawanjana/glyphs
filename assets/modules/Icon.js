@@ -2,6 +2,10 @@
 const NAMESPACE = "http://www.w3.org/2000/svg"
 
 export class Icon {
+  /** @type {number} Width of the SVG */
+  #width = 100
+  /** @type {number} Height of the SVG */
+  #height = 100
   /**
    * @param {import("./Glyphs").IconData} data 
    */
@@ -12,11 +16,13 @@ export class Icon {
     this.group = document.createElementNS(NAMESPACE, "g")
     // add group element into svg
     this.domElement.appendChild(this.group)
-    // get icon data and view box values
-    const view = data.viewBox.split(" ")
+    // get icon dimensions from view box
+    const values = data.viewBox.split(" ")
+    this.#width = values[2]
+    this.#height = values[3]
     // set dimensions and view box
-    this.domElement.setAttribute("width", view[2])
-    this.domElement.setAttribute("height", view[3])
+    this.domElement.setAttribute("width", this.#width)
+    this.domElement.setAttribute("height", this.#height)
     this.domElement.setAttribute("viewBox", data.viewBox)
     // get element tags
     const tags = Object.keys(data.elements)
@@ -38,6 +44,47 @@ export class Icon {
         // append on group
         this.group.appendChild(child)
       }
+    }
+  }
+  /**
+   * Applies style rules to icon
+   * @param {{
+   *  fill: string,
+   *  opacity: number,
+   *  rotate: number,
+   *  scale: number | number[]
+   * }} options 
+   */
+  addStyle(options) {
+    // set fill attribute
+    if ("fill" in options) {
+      this.group.setAttribute("fill", options.fill)
+    }
+    // set opacity attribute
+    if ("opacity" in options) {
+      this.group.setAttribute("opacity", options.opacity)
+    }
+    // transform values
+    const transform = []
+    // check rotate option
+    if ("rotate" in options) {
+      // append rotate rule
+      transform.push(`rotate(${options.rotate})`)
+    }
+    // check scale option
+    if ("scale" in options) {
+      // get scale values as an array
+      const scale = Array.isArray(options.scale)
+        ? options.scale : [options.scale, options.scale]
+      // append scale rule
+      transform.push(`scale(${scale.join(", ")})`)
+    }
+    // set transform attribute
+    if (transform.length) {
+      // transform from center point
+      this.group.setAttribute("transform-origin", "center")
+      // join transform rules
+      this.group.setAttribute("transform", transform.join(" "))
     }
   }
 }
