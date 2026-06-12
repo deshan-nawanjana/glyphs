@@ -1,10 +1,10 @@
+import { Icon } from "./Icon.js"
+
 /**
  * @typedef {{ icons: string[], author: string, url: string }} Meta
- * @typedef {Object.<string, { viewBox: string, elements: Object.<string, Object.<string, string>[]> }>} Data
+ * @typedef {{ viewBox: string, elements: Object.<string, Object.<string, string>[]> }} IconData
+ * @typedef {Object.<string, IconData>} Data
  */
-
-/** SVG namespace */
-const NAMESPACE = "http://www.w3.org/2000/svg"
 
 export class Glyphs {
   /**
@@ -41,44 +41,16 @@ export class Glyphs {
     return results.filter(item => item.score > 0).sort((a, b) => b.score - a.score)
   }
   /**
-   * Generates SVG element for an icon
+   * Generates icon by id
    * @param {string} id Identifier of the icon
-   * @returns {SVGSVGElement | null}
+   * @returns {Icon | null}
    */
-  toSVG(id) {
+  toIcon(id) {
+    // return if no data
+    if (!this.data) return null
     // return if no such icon
     if (id in this.data === false) return null
-    // get icon data and view box values
-    const data = this.data[id]
-    const view = data.viewBox.split(" ")
-    // create svg element
-    const svg = document.createElementNS(NAMESPACE, "svg")
-    // set dimensions and view box
-    svg.setAttribute("width", view[2])
-    svg.setAttribute("height", view[3])
-    svg.setAttribute("viewBox", data.viewBox)
-    // get element tags
-    const tags = Object.keys(data.elements)
-    // for each tag name
-    for (const tag of tags) {
-      // get child element
-      const elements = data.elements[tag]
-      // for each element
-      for (const element of elements) {
-        // get element attributes and values
-        const attributes = Object.keys(element)
-        // create child element by tag name
-        const child = document.createElementNS(NAMESPACE, tag)
-        // for each attribute
-        for (const attribute of attributes) {
-          // set attribute on child element
-          child.setAttribute(attribute, element[attribute])
-        }
-        // append on svg element
-        svg.appendChild(child)
-      }
-    }
-    // return svg element
-    return svg
+    // return icon module
+    return new Icon(this.data[id])
   }
 }
