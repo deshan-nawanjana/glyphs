@@ -14,10 +14,6 @@ const NAMESPACE = "http://www.w3.org/2000/svg"
 export class Icon {
   /** @type {string} Random UUID of icon */
   #uuid = crypto.randomUUID()
-  /** @type {number} Width of the SVG */
-  #width = 100
-  /** @type {number} Height of the SVG */
-  #height = 100
   /**
    * @param {import("./Glyphs").IconData} data 
    */
@@ -28,15 +24,15 @@ export class Icon {
     this.defs = document.createElementNS(NAMESPACE, "defs")
     /** @type {SVGGElement} Group element */
     this.group = document.createElementNS(NAMESPACE, "g")
+    // return if no data
+    if (!data) return
     // add group element into svg
     this.domElement.appendChild(this.group)
     // get icon dimensions from view box
     const values = data.viewBox.split(" ")
-    this.#width = values[2]
-    this.#height = values[3]
     // set dimensions and view box
-    this.domElement.setAttribute("width", this.#width)
-    this.domElement.setAttribute("height", this.#height)
+    this.domElement.setAttribute("width", values[2])
+    this.domElement.setAttribute("height", values[3])
     this.domElement.setAttribute("viewBox", data.viewBox)
     // get element tags
     const tags = Object.keys(data.elements)
@@ -194,5 +190,28 @@ export class Icon {
       // append animate element
       this.group.before(element)
     }
+  }
+  /**
+   * Creates a clone
+   * @returns {Icon}
+   */
+  clone() {
+    // create an icon
+    const icon = new Icon()
+    // get svg inner html
+    const html = this.domElement.innerHTML.toString()
+    // get original view box
+    const viewBox = this.domElement.getAttribute("viewBox").split(" ")
+    // update dimensions and view box
+    icon.domElement.setAttribute("width", viewBox[2])
+    icon.domElement.setAttribute("height", viewBox[3])
+    icon.domElement.setAttribute("viewBox", viewBox.join(" "))
+    // update svg inner html
+    icon.domElement.innerHTML = html.replaceAll(this.#uuid, icon.#uuid)
+    // select child elements
+    icon.defs = icon.domElement.querySelector("defs") || icon.defs
+    icon.group = icon.domElement.querySelector("g") || icon.group
+    // return cloned item
+    return icon
   }
 }
