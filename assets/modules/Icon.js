@@ -1,3 +1,13 @@
+/**
+ * @typedef {{
+ *  type: 'opacity' | 'fill',
+ *  values: (number | string),
+ *  duration: number,
+ *  repeat: number | boolean,
+ *  delay: number
+ * }} Animation
+ */
+
 /** SVG namespace */
 const NAMESPACE = "http://www.w3.org/2000/svg"
 
@@ -135,6 +145,45 @@ export class Icon {
       this.group.setAttribute("transform-origin", "center")
       // join transform rules
       this.group.setAttribute("transform", transform.join(" "))
+    }
+  }
+  /**
+   * Applies animation rules
+   * @param {Animation | Animation[] | false} options 
+   */
+  setAnimations(options) {
+    // get selector by uuid
+    const selector = `anim-${this.#uuid}`
+    // remove all previous animations
+    const previous = this.domElement.getElementsByClassName(selector)
+    Array.from(previous).forEach(element => element.remove())
+    // return if no animation rules
+    if (!options) return
+    // get animations as array
+    const animations = Array.isArray(options) ? options : [options]
+    // for each animation
+    for (const animation of animations) {
+      // create animate element
+      const element = document.createElementNS(NAMESPACE, "animate")
+      // set animation selector
+      element.setAttribute("class", selector)
+      // set animation rules
+      element.setAttribute("attributeName", animation.type)
+      element.setAttribute("values", animation.values.join(";"))
+      element.setAttribute("dur", `${animation.duration ?? 1000}ms`)
+      element.setAttribute("fill", "freeze")
+      // set animation repeat rule
+      if ("repeat" in animation) {
+        const repeat = typeof animation.repeat === "number" ? animation.repeat
+          : animation.repeat ? "indefinite" : 1
+        element.setAttribute("repeatCount", repeat)
+      }
+      // set animation delay rule
+      if ("delay" in animation) {
+        element.setAttribute("begin", `${animation.delay}ms`)
+      }
+      // append animate element
+      this.group.before(element)
     }
   }
 }
