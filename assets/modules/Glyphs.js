@@ -23,19 +23,20 @@ export class Glyphs {
   /**
    * Returns set of icon results for query string
    * @param {string} query Search query
-   * @returns {{ id: string, score: number }[]}
+   * @returns {{ id: string, collection: string, score: number }[]}
    */
   find(query) {
     // get all result items
-    const items = this.meta.icons.map(id => ({ id, score: 1 }))
+    const items = this.meta.icons.map(id => ({ id, collection: this.name, score: 1 }))
     // return all items for empty query
     if (query.trim() === "") return items
     // split into query keywords
     const keywords = query.toLowerCase().split(" ").filter(word => word !== "")
     // get scored results by keywords
     const results = items.map(item => ({
+      id: item.id, collection: item.collection,
       // calculate score by available word count in icon id
-      id: item.id, score: keywords.filter(word => item.id.includes(word)).length
+      score: keywords.filter(word => item.id.includes(word)).length
     }))
     // return filtered and sorted results
     return results.filter(item => item.score > 0).sort((a, b) => b.score - a.score)
