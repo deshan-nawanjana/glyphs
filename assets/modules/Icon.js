@@ -1,7 +1,7 @@
 /**
  * @typedef {{
- *  type: 'opacity' | 'fill',
- *  values: (number | string),
+ *  type: 'opacity' | 'fill' | 'rotate' | 'scale',
+ *  values: (number | string | number[])[],
  *  duration: number,
  *  repeat: number | boolean,
  *  delay: number
@@ -163,13 +163,20 @@ export class Icon {
     const animations = Array.isArray(options) ? options : [options]
     // for each animation
     for (const animation of animations) {
+      // select animation transform flag
+      const isTransform = ["rotate", "scale"].includes(animation.type)
       // create animate element
-      const element = document.createElementNS(NAMESPACE, "animate")
+      const element = document.createElementNS(NAMESPACE, isTransform ? "animateTransform" : "animate")
       // set animation selector
       element.setAttribute("class", selector)
+      // set animation attribute
+      element.setAttribute("attributeName", isTransform ? "transform" : animation.type)
+      // set animation type
+      if (isTransform) element.setAttribute("type", animation.type)
+      // get animation values
+      const values = animation.values.map(item => Array.isArray(item) ? item.join(" ") : item)
       // set animation rules
-      element.setAttribute("attributeName", animation.type)
-      element.setAttribute("values", animation.values.join(";"))
+      element.setAttribute("values", values.join(";"))
       element.setAttribute("dur", `${animation.duration ?? 1000}ms`)
       element.setAttribute("fill", "freeze")
       // set animation repeat rule
@@ -182,6 +189,8 @@ export class Icon {
       if ("delay" in animation) {
         element.setAttribute("begin", `${animation.delay}ms`)
       }
+      // set additive attribute
+      if (isTransform) element.setAttribute("additive", "sum")
       // append animate element
       this.group.before(element)
     }
