@@ -1,6 +1,10 @@
 import { Glyphs } from "./Glyphs.js"
 import { Icon } from "./Icon.js"
 
+/**
+ * @typedef {{ id: string, collection: Glyphs, score: number, icon: Icon | null }} IconResult
+ */
+
 export class Engine {
   /**
    * @param {string} baseURL Objects base URL
@@ -26,10 +30,10 @@ export class Engine {
     }
   }
   /**
-   * Returns set of icon results for query string
+   * Returns set of icon results
    * @param {string} query Search query
    * @param {string[] | null} groups Selected collections
-   * @returns {{ id: string, collection: Glyphs, score: number }[]}
+   * @returns {IconResult[]}
    */
   find(query, groups) {
     // split query into keywords
@@ -50,10 +54,46 @@ export class Engine {
         // continue if no score
         if (keywords.length > 0 && score === 0) continue
         // push to results
-        output.push({ id, collection: this.list[name], score })
+        output.push({ id, collection: this.list[name], score, icon: null })
       }
     }
     // return sorted output output
     return output.sort((a, b) => b.score - a.score)
+  }
+  /**
+   * Loads icons in results
+   * @param {IconResult[]} results Set of icon results
+   * @param {number} limit Number of icons to load
+   * @returns {Promise<boolean>}
+   */
+  async loadResults(results, limit) {
+    // find index of unloaded result
+    const index = results.findIndex(item => !item.icon)
+    // return if no remaining items
+    if (index === -1) return false
+    // calculate 
+    const length = Math.min(results.length, index + limit)
+    // for each item
+    for (let i = index; i < length; i++) {
+      // get item by index
+      const item = results[i]
+      // get glyphs collection of icon
+      const list = item.collection
+      // check if collection not loaded
+      if (!list.data) {
+        // fetch collection data
+        const resp = await fetch(`${this.baseURL}/packs/${list.name}.zip`)
+        // create archive
+        const archive = new JSZip()
+        // load archive data from blob
+        await archive.loadAsync(resp.blob())
+        // parse icons definitions
+        list.data = JSON.parse(await archive.files[`${list.name}.json`].async("text"))
+      }
+      // create ad set icon on result
+      item.icon = list.toIcon(item.id)
+    }
+    // return as loaded
+    return true
   }
 }
