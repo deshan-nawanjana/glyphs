@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "FiraCode";
+  outline: none;
+}
+
+body {
+  background-color: #222;
+}
+
+header {
+  position: fixed;
+  background-color: #0007;
+  box-shadow: 0px 0px 10px #0002;
+  backdrop-filter: blur(10px);
+  display: flex;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  background-color: #0008;
+  background-image: url(./assets/images/logo-transparent.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+#search {
+  color: #fff8;
+  font-size: 15px;
+  background-color: transparent;
+  padding: 0px 25px;
+  flex-grow: 1;
+  border: none;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 90px 10px 10px 10px;
+  justify-content: center;
+  gap: 10px;
+}
+
+.results-item {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  background-color: #fff1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: background-color 0.15s;
+  user-select: none;
+  cursor: pointer;
+  padding: 10px;
+  gap: 25px;
+}
+
+.results-item:hover {
+  background-color: #ffffff22;
+}
+
+.results-item:active {
+  background-color: #ffffff1a;
+}
+
+.results-item[data-loading] .results-item-icon {
+  background-image: url(./assets/images/spinner.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px auto;
+}
+
+.results-item svg {
+  width: 60px;
+  height: 60px;
+  fill: #888;
+}
+
+.results-item-icon {
+  margin-top: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.results-item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  font-size: 10px;
+  width: calc(100% - 12px);
+  color: #777;
+}

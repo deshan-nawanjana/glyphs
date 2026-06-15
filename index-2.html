@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/logo.png" type="image/png">
+  <!-- fonts -->
+  <link rel="stylesheet" href="./assets/fonts/fonts.css">
   <!-- style -->
   <link rel="stylesheet" href="./index-2.css">
   <!-- libraries -->
@@ -21,7 +23,36 @@
 
 <body>
   <!-- app root -->
-  <div id="app"></div>
+  <div id="app">
+    <!-- header -->
+    <header>
+      <div class="logo"></div>
+      <input
+        type="text"
+        id="search"
+        placeholder="Search icons..."
+        v-model="query.text"
+        @input="search"
+        spellcheck="false"
+      />
+    </header>
+    <!-- results -->
+    <div class="results">
+      <div
+        class="results-item"
+        v-for="item in results"
+        :data-loading="!item.icon">
+        <div
+          class="results-item-icon"
+          v-html="item.icon?.domElement.outerHTML">
+        </div>
+        <div
+          class="results-item-text">
+          {{item.id}}
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
