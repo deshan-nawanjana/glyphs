@@ -31,19 +31,19 @@ export class Engine {
   }
   /**
    * Returns set of icon results
-   * @param {string} query Search query
-   * @param {string[] | null} groups Selected collections
+   * @param {string} text Search query text
+   * @param {string | null} collection Selected collection
    * @returns {IconResult[]}
    */
-  find(query, groups) {
-    // split query into keywords
-    const keywords = query.toLowerCase().split(" ").filter(word => word.length > 0)
+  find(text, collection) {
+    // split query text into keywords
+    const keywords = text.toLowerCase().split(" ").filter(word => word.length > 0)
     // output array
     const output = []
     // for each meta item
     for (const name of Object.keys(this.data)) {
       // continue if not selected
-      if (groups && !groups.includes(name)) continue
+      if (collection && collection !== name) continue
       // for each icon in collection
       for (const id of this.data[name].icons) {
         // calculate score levels
