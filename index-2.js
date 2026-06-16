@@ -11,8 +11,6 @@ new Vue({
   el: "#app",
   // app data
   data: {
-    // ready state
-    ready: false,
     // loading status
     loading: false,
     // search results
@@ -82,6 +80,6 @@ new Vue({
     // page scroll listener
     window.addEventListener("scroll", this.scroll)
     // set as ready
-    this.ready = true
+    document.body.setAttribute("data-ready", true)
   }
 })

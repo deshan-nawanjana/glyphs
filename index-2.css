@@ -7,6 +7,26 @@
 
 body {
   background-color: #222;
+  background-image: url(./assets/images/spinner.svg);
+  background-position: center;
+  background-size: 30px auto;
+  background-repeat: no-repeat;
+  height: 100svh;
+  overflow: hidden;
+}
+
+body[data-ready] {
+  background-image: none;
+  height: auto;
+  overflow: auto;
+}
+
+#app {
+  display: none;
+}
+
+[data-ready] #app {
+  display: block;
 }
 
 header {
@@ -98,4 +118,12 @@ header {
   font-size: 10px;
   width: calc(100% - 12px);
   color: #777;
+}
+
+.spinner {
+  height: 140px;
+  background-image: url(./assets/images/spinner.svg);
+  background-position: center;
+  background-size: 30px auto;
+  background-repeat: no-repeat;
 }
