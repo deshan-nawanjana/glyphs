@@ -46,13 +46,15 @@ export class Engine {
   /**
    * Returns set of icon results
    * @param {{ text: string, group: string }} query Search parameters
-   * @returns {IconResult[]}
+   * @returns {{ items: IconResult[], counts: Object.<string, number> }}
    */
   find(query) {
     // split query text into keywords
     const keywords = query.text.toLowerCase().split(" ").filter(word => word.length > 0)
     // output array
     const output = []
+    // results count for each collection
+    const counts = { All: 0 }
     // for each meta item
     for (const name of Object.keys(this.data)) {
       // continue if not selected
@@ -66,12 +68,16 @@ export class Engine {
         const score = highScore + lowScore
         // continue if no score
         if (keywords.length > 0 && score === 0) continue
+        // increase collection count
+        if (name in counts) { counts[name] += 1 } else counts[name] = 1
         // push to results
         output.push({ id, collection: this.list[name], score, icon: null })
       }
     }
+    // set all results count
+    counts.All = output.length
     // return sorted output output
-    return output.sort((a, b) => b.score - a.score)
+    return { items: output.sort((a, b) => b.score - a.score), counts }
   }
   /**
    * Loads icons in results
