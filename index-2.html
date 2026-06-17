@@ -30,25 +30,43 @@
       <input
         type="text"
         id="search"
-        placeholder="Search icons..."
+        placeholder="Search Glyphs..."
         v-model="query.text"
         @input="search"
         spellcheck="false"
       />
     </header>
-    <!-- results -->
-    <div class="results">
-      <div
-        class="results-item"
-        v-for="item in results"
-        :data-loading="!item.icon">
-        <div
-          class="results-item-icon"
-          v-html="item.icon?.domElement.outerHTML">
+    <!-- content -->
+    <div class="content">
+      <!-- listing -->
+      <div class="listing">
+        <div class="listing-inner">
+          <div
+            class="listing-item"
+            v-for="item in groups">
+            <div class="listing-item-name">
+              {{item}}
+            </div>
+            <div class="listing-item-count">
+              {{count(item)}}
+            </div>
+          </div>
         </div>
+      </div>
+      <!-- results -->
+      <div class="results">
         <div
-          class="results-item-text">
-          {{item.id}}
+          class="results-item"
+          v-for="item in results"
+          :data-loading="!item.icon">
+          <div
+            class="results-item-icon"
+            v-html="item.icon?.domElement.outerHTML">
+          </div>
+          <div
+            class="results-item-text">
+            {{item.id}}
+          </div>
         </div>
       </div>
     </div>

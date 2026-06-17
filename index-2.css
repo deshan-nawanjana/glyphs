@@ -11,8 +11,9 @@ body {
   background-position: center;
   background-size: 30px auto;
   background-repeat: no-repeat;
-  height: 100svh;
   overflow: hidden;
+  height: 100svh;
+  margin: 0px;
 }
 
 body[data-ready] {
@@ -23,6 +24,7 @@ body[data-ready] {
 
 #app {
   display: none;
+  user-select: none;
 }
 
 [data-ready] #app {
@@ -59,17 +61,87 @@ header {
   border: none;
 }
 
+.content {
+  display: flex;
+  gap: 20px;
+}
+
+.listing {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 220px;
+  top: 60px;
+  left: 0px;
+  background-color: #0003;
+  height: calc(100svh - 60px);
+  overflow: hidden;
+}
+
+.listing-inner {
+  width: calc(100% + 4px);
+  height: 100%;
+  overflow-y: auto;
+  transition: width, padding-right;
+  transition-duration: 0.2s;
+  padding-right: 4px;
+}
+
+.listing-inner::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.listing-inner::-webkit-scrollbar-thumb {
+  background-color: #fff2;
+}
+
+.listing-inner:hover {
+  width: 100%;
+  padding-right: 0px;
+}
+
+.listing-item {
+  font-size: 14px;
+  padding: 4px 12px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.listing-item:first-child {
+  margin-top: 8px;
+}
+
+.listing-item:last-child {
+  margin-bottom: 8px;
+}
+
+.listing-item:hover {
+  background-color: #ffffff0a;
+}
+
+.listing-item-name {
+  flex-grow: 1;
+  color: #fff5;
+}
+
+.listing-item-count {
+  color: #fff2;
+  font-style: italic;
+}
+
 .results {
   display: flex;
   flex-wrap: wrap;
-  padding: 90px 10px 10px 10px;
-  justify-content: center;
+  padding: 90px 10px 10px 250px;
   gap: 10px;
 }
 
 .results-item {
-  width: 150px;
-  height: 150px;
+  width: 146px;
+  height: 146px;
   border-radius: 8px;
   background-color: #fff1;
   display: flex;

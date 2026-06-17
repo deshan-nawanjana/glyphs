@@ -20,7 +20,9 @@ new Vue({
     // query parameters
     query: { text: "", group: "All" },
     // query groups
-    groups: ["All"]
+    groups: ["All"],
+    // engine
+    engine
   },
   // computed values
   computed: {
@@ -56,6 +58,8 @@ new Vue({
       await engine.loadResults(this.items, LIMIT)
       // stop loading
       this.loading = false
+      // set as ready
+      document.body.setAttribute("data-ready", true)
     },
     // scroll handler
     scroll() {
@@ -67,6 +71,13 @@ new Vue({
       if (height - position > 400) return
       // load more items
       this.load()
+    },
+    // calculate icons count
+    count(name) {
+      // all icons count
+      if (name === "All") { return this.items.length }
+      // return count by collection name
+      return this.items.filter(item => item.collection.name === name).length
     }
   },
   // mounted listener
@@ -79,7 +90,5 @@ new Vue({
     this.search()
     // page scroll listener
     window.addEventListener("scroll", this.scroll)
-    // set as ready
-    document.body.setAttribute("data-ready", true)
   }
 })
