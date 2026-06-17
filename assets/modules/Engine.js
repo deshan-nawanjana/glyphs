@@ -2,6 +2,20 @@ import { Glyphs } from "./Glyphs.js"
 import { Icon } from "./Icon.js"
 
 /**
+ * Extracts file content
+ * @param {Promise<Blob>} blob File object
+ * @param {string} name Name of the file
+ */
+const extractFile = async (blob, name) => {
+  // create archive
+  const archive = new JSZip()
+  // load archive data from blob
+  await archive.loadAsync(blob)
+  // return parsed content
+  return JSON.parse(await archive.files[`${name}.json`].async("text"))
+}
+
+/**
  * @typedef {{ id: string, collection: Glyphs, score: number, icon: Icon | null }} IconResult
  */
 
@@ -20,9 +34,9 @@ export class Engine {
   /** Loads collections listing */
   async load() {
     // fetch collections
-    const resp = await fetch(`${this.baseURL}/data.json`)
+    const resp = await fetch(`${this.baseURL}/listing.zip`)
     // get parsed response
-    this.data = await resp.json()
+    this.data = await extractFile(resp.blob(), "listing")
     // for each collection
     for (const name of Object.keys(this.data)) {
       // create glyphs collection
@@ -82,12 +96,8 @@ export class Engine {
       if (!list.data) {
         // fetch collection data
         const resp = await fetch(`${this.baseURL}/packs/${list.name}.zip`)
-        // create archive
-        const archive = new JSZip()
-        // load archive data from blob
-        await archive.loadAsync(resp.blob())
         // parse icons definitions
-        list.data = JSON.parse(await archive.files[`${list.name}.json`].async("text"))
+        list.data = await extractFile(resp.blob(), list.name)
       }
       // create ad set icon on result
       item.icon = list.toIcon(item.id)
