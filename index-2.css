@@ -104,18 +104,18 @@ header {
 .listing-item {
   font-size: 14px;
   padding: 4px 12px;
-  height: 35px;
+  height: 38px;
   display: flex;
   align-items: center;
   transition: background-color 0.2s;
 }
 
 .listing-item:first-child {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .listing-item:last-child {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .listing-item:hover {

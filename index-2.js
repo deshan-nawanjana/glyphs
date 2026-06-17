@@ -15,6 +15,8 @@ new Vue({
     loading: false,
     // search results
     items: [],
+    // search result counts
+    counts: {},
     // listing limit
     limit: LIMIT,
     // query parameters
@@ -40,8 +42,11 @@ new Vue({
         this.limit = 0
         // reset scroll position
         document.documentElement.scrollTop = 0
-        // update search results
-        this.items = engine.find(this.query)
+        // get engine results
+        const results = engine.find(this.query)
+        // update search results and counts
+        this.items = results.items
+        this.counts = results.counts
         // load results
         this.load()
       }, 500)
@@ -71,13 +76,6 @@ new Vue({
       if (height - position > 400) return
       // load more items
       this.load()
-    },
-    // calculate icons count
-    count(name) {
-      // all icons count
-      if (name === "All") { return this.items.length }
-      // return count by collection name
-      return this.items.filter(item => item.collection.name === name).length
     }
   },
   // mounted listener
