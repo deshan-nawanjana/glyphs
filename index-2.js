@@ -48,6 +48,17 @@ new Vue({
         this.load()
       }, 500)
     },
+    // select group
+    group(name) {
+      // return if same group
+      if (this.query.group === name) return
+      // set group on query
+      this.query.group = name
+      // reset scroll position
+      document.documentElement.scrollTop = 0
+      // load list
+      this.load()
+    },
     // load result items
     async load() {
       // return if loading
