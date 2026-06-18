@@ -43,13 +43,15 @@
         <div class="listing-inner">
           <div
             class="listing-item"
-            v-for="item in groups"
-            v-if="counts[item]">
+            :data-selected="query.group === item"
+            @click="query.group = item; load()"
+            v-if="items?.[item]?.length > 0"
+            v-for="item in groups">
             <div class="listing-item-name">
               {{item}}
             </div>
             <div class="listing-item-count">
-              {{counts[item]}}
+              {{items?.[item]?.length}}
             </div>
           </div>
         </div>

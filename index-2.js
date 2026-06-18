@@ -14,9 +14,7 @@ new Vue({
     // loading status
     loading: false,
     // search results
-    items: [],
-    // search result counts
-    counts: {},
+    items: null,
     // listing limit
     limit: LIMIT,
     // query parameters
@@ -29,7 +27,9 @@ new Vue({
   // computed values
   computed: {
     // slice results by listing limit
-    results() { return this.items.slice(0, this.limit) }
+    results() {
+      return this.items ? this.items[this.query.group].slice(0, this.limit) : []
+    }
   },
   // app methods
   methods: {
@@ -42,11 +42,8 @@ new Vue({
         this.limit = 0
         // reset scroll position
         document.documentElement.scrollTop = 0
-        // get engine results
-        const results = engine.find(this.query)
-        // update search results and counts
-        this.items = results.items
-        this.counts = results.counts
+        // update search result items
+        this.items = engine.find(this.query.text)
         // load results
         this.load()
       }, 500)
@@ -60,7 +57,7 @@ new Vue({
       // increase limit
       this.limit += LIMIT
       // load items
-      await engine.loadResults(this.items, LIMIT)
+      await engine.loadResults(this.items[this.query.group], LIMIT)
       // stop loading
       this.loading = false
       // set as ready
