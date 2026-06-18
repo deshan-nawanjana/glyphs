@@ -132,6 +132,19 @@ header {
   font-style: italic;
 }
 
+.listing-item[data-selected] {
+  background-color: #ffffff0f;
+  box-shadow: 4px 0px 0px 0px #ffffff0f;
+}
+
+.listing-item[data-selected] .listing-item-name {
+  color: #1682ef;
+}
+
+.listing-item[data-selected] .listing-item-count {
+  color: #fff4;
+}
+
 .results {
   display: flex;
   flex-wrap: wrap;
