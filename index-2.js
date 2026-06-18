@@ -44,6 +44,8 @@ new Vue({
         document.documentElement.scrollTop = 0
         // update search result items
         this.items = engine.find(this.query.text)
+        // reset group if no collection results
+        if (this.items[this.query.group].length === 0) this.query.group = "All"
         // load results
         this.load()
       }, 500)
