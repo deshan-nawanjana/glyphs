@@ -45,20 +45,18 @@ export class Engine {
   }
   /**
    * Returns set of icon results
-   * @param {{ text: string, group: string }} query Search parameters
-   * @returns {{ items: IconResult[], counts: Object.<string, number> }}
+   * @param {string} query Search query text
+   * @returns {Object.<string, IconResult[]>}
    */
   find(query) {
     // split query text into keywords
-    const keywords = query.text.toLowerCase().split(" ").filter(word => word.length > 0)
-    // output array
-    const output = []
-    // results count for each collection
-    const counts = { All: 0 }
+    const keywords = query.toLowerCase().split(" ").filter(word => word.length > 0)
+    // output object
+    const output = { All: [] }
     // for each meta item
     for (const name of Object.keys(this.data)) {
-      // continue if not selected
-      if (query.group !== "All" && query.group !== name) continue
+      // initiate collection node
+      output[name] = []
       // for each icon in collection
       for (const id of this.data[name].icons) {
         // calculate score levels
@@ -68,16 +66,20 @@ export class Engine {
         const score = highScore + lowScore
         // continue if no score
         if (keywords.length > 0 && score === 0) continue
-        // increase collection count
-        if (name in counts) { counts[name] += 1 } else counts[name] = 1
-        // push to results
-        output.push({ id, collection: this.list[name], score, icon: null })
+        // create result item
+        const item = { id, collection: this.list[name], score, icon: null }
+        // push to results by collection
+        output[name].push(item)
+        // push to all results
+        output.All.push(item)
       }
+      // sort collection results by score
+      output[name].sort((a, b) => b.score - a.score)
     }
-    // set all results count
-    counts.All = output.length
-    // return sorted output output
-    return { items: output.sort((a, b) => b.score - a.score), counts }
+    // sort all results by score
+    output.All.sort((a, b) => b.score - a.score)
+    // return sorted output
+    return output
   }
   /**
    * Loads icons in results
