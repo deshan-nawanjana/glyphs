@@ -21,6 +21,8 @@ new Vue({
     query: { text: "", group: "All" },
     // query groups
     groups: ["All"],
+    // popup opened state
+    popup: false,
     // engine
     engine
   },
@@ -90,6 +92,13 @@ new Vue({
       if (height - position > 400) return
       // load more items
       this.load()
+    },
+    // open icon
+    open(item) {
+      // return if no icon
+      if (!item.icon) return
+      // open popup
+      this.popup = true
     }
   },
   // mounted listener
