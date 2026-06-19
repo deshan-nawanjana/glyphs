@@ -84,18 +84,17 @@ export class Engine {
   /**
    * Loads icons in results
    * @param {IconResult[]} results Set of icon results
-   * @param {number} limit Number of icons to load
+   * @param {number} start Starting index to load
+   * @param {number} limit Icons limit to load
    * @returns {Promise<boolean>}
    */
-  async loadResults(results, limit) {
-    // find index of unloaded result
-    const index = results.findIndex(item => !item.icon)
-    // return if no remaining items
-    if (index === -1) return false
-    // calculate 
-    const length = Math.min(results.length, index + limit)
+  async loadResults(results, start, limit) {
+    // calculate last item index
+    const last = Math.min(results.length, start + limit)
+    // return if no available items
+    if (last - start <= 0) return false
     // for each item
-    for (let i = index; i < length; i++) {
+    for (let i = start; i < last; i++) {
       // get item by index
       const item = results[i]
       // get glyphs collection of icon
@@ -108,7 +107,7 @@ export class Engine {
         list.data = await extractFile(resp.blob(), list.name)
       }
       // create ad set icon on result
-      item.icon = list.toIcon(item.id)
+      if (!item.icon) item.icon = list.toIcon(item.id)
     }
     // return as loaded
     return true
