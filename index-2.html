@@ -61,6 +61,7 @@
         <div
           class="results-item"
           v-for="item in results"
+          @click="open(item)"
           :data-loading="!item.icon">
           <div
             class="results-item-icon"
@@ -73,8 +74,10 @@
         </div>
       </div>
     </div>
-    <!-- results -->
-    <div class="spinner" v-if="loading"></div>
+    <!-- popup -->
+    <div class="popup" v-if="popup.opened">
+      Hello World
+    </div>
   </div>
 </body>
 
