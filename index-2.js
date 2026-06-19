@@ -52,6 +52,8 @@ new Vue({
     },
     // select group
     group(name) {
+      // return if loading
+      if (this.loading) return
       // return if same group
       if (this.query.group === name) return
       // set group on query
@@ -69,10 +71,10 @@ new Vue({
       if (this.loading) return
       // start loading
       this.loading = true
-      // load items
-      await engine.loadResults(this.items[this.query.group], this.limit, PAGE)
       // increase limit
       this.limit += PAGE
+      // load items
+      await engine.loadResults(this.items[this.query.group], this.limit - PAGE, PAGE)
       // stop loading
       this.loading = false
       // set as ready
