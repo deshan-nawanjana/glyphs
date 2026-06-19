@@ -1,7 +1,7 @@
 import { Engine } from "./assets/modules/Engine.js"
 
 // icons limit per page
-const LIMIT = 120
+const PAGE = 120
 
 // create glyphs engine
 const engine = new Engine("assets/objects")
@@ -16,7 +16,7 @@ new Vue({
     // search results
     items: null,
     // listing limit
-    limit: LIMIT,
+    limit: 0,
     // query parameters
     query: { text: "", group: "All" },
     // query groups
@@ -56,6 +56,8 @@ new Vue({
       if (this.query.group === name) return
       // set group on query
       this.query.group = name
+      // reset limit
+      this.limit = 0
       // reset scroll position
       document.documentElement.scrollTop = 0
       // load list
@@ -67,10 +69,10 @@ new Vue({
       if (this.loading) return
       // start loading
       this.loading = true
-      // increase limit
-      this.limit += LIMIT
       // load items
-      await engine.loadResults(this.items[this.query.group], LIMIT)
+      await engine.loadResults(this.items[this.query.group], this.limit, PAGE)
+      // increase limit
+      this.limit += PAGE
       // stop loading
       this.loading = false
       // set as ready
