@@ -111,5 +111,10 @@ new Vue({
     this.search()
     // page scroll listener
     window.addEventListener("scroll", this.scroll)
+    // wheel event listener
+    window.addEventListener("wheel", event => {
+      // prevent wheel when popup opened
+      this.popup && event.preventDefault()
+    }, { passive: false })
   }
 })
