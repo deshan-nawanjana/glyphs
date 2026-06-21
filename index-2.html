@@ -76,10 +76,8 @@
     </div>
     <!-- popup -->
     <div class="popup" :data-opened="popup.toString()">
-      <div class="popup-content">
-        <button @click="popup = false">
-          Close
-        </button>
+      <div class="popup-content" @click="popup = false">
+        <div class="icon-preview" v-if="icon" v-html="html"></div>
       </div>
     </div>
   </div>

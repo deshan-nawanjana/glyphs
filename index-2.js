@@ -23,6 +23,12 @@ new Vue({
     groups: ["All"],
     // popup opened state
     popup: false,
+    // selected item
+    item: null,
+    // current icon
+    icon: null,
+    // current icon html
+    html: null,
     // engine
     engine
   },
@@ -97,8 +103,21 @@ new Vue({
     open(item) {
       // return if no icon
       if (!item.icon) return
+      // set current item
+      this.item = item
+      // clone icon from item
+      this.icon = item.icon.clone()
+      // update icon
+      this.update()
       // open popup
       this.popup = true
+    },
+    // update icon
+    update() {
+      // return if no icon
+      if (!this.icon) return
+      // update html with icon content
+      this.html = this.icon.domElement.outerHTML
     }
   },
   // mounted listener
