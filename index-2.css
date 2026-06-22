@@ -207,7 +207,7 @@ header {
 
 .popup {
   position: fixed;
-  width: 100svw;
+  width: 100vw;
   height: 100svh;
   background-color: #0008;
   transition-property: opacity;
@@ -232,8 +232,10 @@ header {
 }
 
 .popup-content {
-  width: 600px;
-  height: 450px;
+  width: calc(100svw - 70px);
+  height: calc(100svh - 70px);
+  max-width: 900px;
+  max-height: 750px;
   background-color: #252525;
   box-shadow: 0px 0px 30px #000a;
   transition-property: transform;
@@ -251,8 +253,8 @@ header {
 }
 
 .icon-preview {
-  width: 100%;
-  height: 100%;
+  width: 350px;
+  height: 350px;
   background-color: #fff;
   background-image: url(./assets/images/canvas.svg);
   background-position: top left;
@@ -265,6 +267,6 @@ header {
 }
 
 .icon-preview svg {
-  width: 65%;
-  height: 65%;
+  width: 80%;
+  height: 80%;
 }
