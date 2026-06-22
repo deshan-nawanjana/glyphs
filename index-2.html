@@ -76,8 +76,17 @@
     </div>
     <!-- popup -->
     <div class="popup" :data-opened="popup.toString()">
-      <div class="popup-content" @click="popup = false">
-        <div class="icon-preview" v-if="icon" v-html="html"></div>
+      <div class="popup-content">
+        <div class="icon-preview">
+          <div class="icon-preview-content" :data-inverted="inverted" ref="icon"></div>
+          <div class="icon-preview-footer">
+            <button class="icon-preview-default" @click="inverted = false"></button>
+            <button class="icon-preview-inverted" @click="inverted = true"></button>
+          </div>
+        </div>
+        <button @click="popup = false">
+          Close
+        </button>
       </div>
     </div>
   </div>

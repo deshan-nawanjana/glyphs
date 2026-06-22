@@ -253,8 +253,19 @@ header {
 }
 
 .icon-preview {
-  width: 350px;
-  height: 350px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #111;
+  background-color: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  gap: 2px;
+  width:360px;
+}
+
+.icon-preview-content {
+  width: 100%;
+  height: 360px;
   background-color: #fff;
   background-image: url(./assets/images/canvas.svg);
   background-position: top left;
@@ -263,10 +274,36 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
 }
 
-.icon-preview svg {
+.icon-preview-content[data-inverted] {
+  filter: invert(1);
+}
+
+.icon-preview-content[data-inverted] svg {
+  filter: invert(1);
+}
+
+.icon-preview-content svg {
   width: 80%;
   height: 80%;
+}
+
+.icon-preview-footer {
+  display: flex;
+}
+
+.icon-preview-footer button {
+  height: 20px;
+  background-image: url(./assets/images/canvas.svg);
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: 20px auto;
+  cursor: pointer;
+  border: none;
+  flex: 50%;
+}
+
+.icon-preview-footer .icon-preview-inverted {
+  filter: invert(1);
 }

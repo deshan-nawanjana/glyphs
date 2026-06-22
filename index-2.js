@@ -23,12 +23,12 @@ new Vue({
     groups: ["All"],
     // popup opened state
     popup: false,
+    // inverted preview
+    inverted: false,
     // selected item
     item: null,
     // current icon
     icon: null,
-    // current icon html
-    html: null,
     // engine
     engine
   },
@@ -107,17 +107,12 @@ new Vue({
       this.item = item
       // clone icon from item
       this.icon = item.icon.clone()
-      // update icon
-      this.update()
       // open popup
       this.popup = true
-    },
-    // update icon
-    update() {
-      // return if no icon
-      if (!this.icon) return
-      // update html with icon content
-      this.html = this.icon.domElement.outerHTML
+      // remove previous content
+      this.$refs.icon.innerHTML = ""
+      // append icon element
+      this.$refs.icon.appendChild(this.icon.domElement)
     }
   },
   // mounted listener
