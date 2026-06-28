@@ -29,6 +29,8 @@ new Vue({
     item: null,
     // current icon
     icon: null,
+    // style options
+    style: { rotate: 0, opacity: 1, scale: 1 },
     // engine
     engine
   },
@@ -113,6 +115,15 @@ new Vue({
       this.$refs.icon.innerHTML = ""
       // append icon element
       this.$refs.icon.appendChild(this.icon.domElement)
+      // update icon
+      this.update()
+    },
+    // update icon
+    update() {
+      // return if no icon
+      if (!this.icon) return
+      // add icon style
+      this.icon.addStyle(this.style)
     }
   },
   // mounted listener

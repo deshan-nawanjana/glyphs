@@ -77,16 +77,47 @@
     <!-- popup -->
     <div class="popup" :data-opened="popup.toString()">
       <div class="popup-content">
-        <div class="icon-preview">
-          <div class="icon-preview-content" :data-inverted="inverted" ref="icon"></div>
-          <div class="icon-preview-footer">
-            <button class="icon-preview-default" @click="inverted = false"></button>
-            <button class="icon-preview-inverted" @click="inverted = true"></button>
+        <div class="popup-content-inner">
+          <!-- preview -->
+          <div class="icon-preview">
+            <div class="icon-preview-content" :data-inverted="inverted" ref="icon"></div>
+            <div class="icon-preview-footer">
+              <button class="icon-preview-default" @click="inverted = false"></button>
+              <button class="icon-preview-inverted" @click="inverted = true"></button>
+            </div>
           </div>
+          <!-- options -->
+          <fieldset class="options" @input="update">
+            <!-- rotate -->
+            <label for="rotate">
+              <div class="label-text">
+                Rotate
+              </div>
+              <input type="range" id="rotate" min="0" max="360" v-model="style.rotate">
+              <input type="number" id="rotate" min="0" max="360" v-model="style.rotate">
+            </label>
+            <!-- opacity -->
+            <label for="opacity">
+              <div class="label-text">
+                Opacity
+              </div>
+              <input type="range" id="opacity" min="0" max="1" step="0.01" v-model="style.opacity">
+              <input type="number" id="opacity" min="0" max="1" step="0.01" v-model="style.opacity">
+            </label>
+            <!-- scale -->
+            <label for="scale">
+              <div class="label-text">
+                Scale
+              </div>
+              <input type="range" id="scale" min="0.1" max="2" step="0.1" v-model="style.scale">
+              <input type="number" id="scale" min="0.1" max="2" step="0.1" v-model="style.scale">
+            </label>
+            <!-- close button -->
+            <button @click="popup = false">
+              Close
+            </button>
+          </fieldset>
         </div>
-        <button @click="popup = false">
-          Close
-        </button>
       </div>
     </div>
   </div>
